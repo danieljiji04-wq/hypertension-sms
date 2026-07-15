@@ -1,0 +1,19 @@
+# .github/workflows/daily-sms.yml
+name: Daily SMS
+on:
+  schedule:
+    - cron: '0 14 * * *'   # 9 AM EST daily
+  workflow_dispatch:        # lets you trigger manually for testing
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install twilio
+      - run: python send_daily.py
+        env:
+          TWILIO_SID: ${{ ACc17afdced3213c8b0909f2bb8609310b }}
+          TWILIO_TOKEN: ${{ 1747331d96a57e799d2f25ad395dd8bb }}
+          TWILIO_FROM: ${{ +18773184615 }}
